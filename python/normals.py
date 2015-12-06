@@ -97,62 +97,6 @@ class Scharr(Normal):
     Normal.__init__(self, SCHARR, body)
 
 
-def sobel(body):
-  n = body.empty_uv_xyz()
-  p = body.p
-  for ui in xrange(1, body.uv_shape[0] - 1):
-    for vi in xrange(1, body.uv_shape[1] - 1):
-      p_c  = p[ui  , vi,   :]
-      p_e  = p[ui+1, vi,   :]
-      p_w  = p[ui-1, vi,   :]
-      p_n  = p[ui,   vi+1, :]
-      p_s  = p[ui,   vi-1, :]
-      p_ne = p[ui+1, vi+1, :]
-      p_nw = p[ui-1, vi+1, :]
-      p_se = p[ui+1, vi-1, :]
-      p_sw = p[ui-1, vi-1, :]
-
-      P = [
-        p_nw, p_n, p_ne,
-        p_w,  p_c, p_e,
-        p_sw, p_s, p_se,
-      ]
-
-      pu = sum([P[i] * SOBEL_X[i] for i in range(9)])
-      pv = sum([P[i] * SOBEL_Y[i] for i in range(9)])
-      m = np.cross(pu, pv)
-      m /= np.linalg.norm(m)
-      n[ui, vi, :] = -m
-  return n
-
-def central(body):
-  n = body.empty_uv_xyz()
-  p = body.p
-  for ui in xrange(1, body.uv_shape[0] - 1):
-    for vi in xrange(1, body.uv_shape[1] - 1):
-      p_e = p[ui+1, vi, :]
-      p_w = p[ui-1, vi, :]
-      p_n = p[ui, vi+1, :]
-      p_s = p[ui, vi-1, :]
-      pu = p_w - p_e
-      pv = p_s - p_n
-      m = np.cross(pu, pv)
-      m /= np.linalg.norm(m)
-      n[ui, vi, :] = m
-  return n
-
-
-def dot_normal_x0(body, n):
-  p = body.p
-  d = []
-  for ui in xrange(1, body.uv_shape[0] - 1):
-    for vi in xrange(1, body.uv_shape[1] - 1):
-      ni = n[ui, vi, :]
-      pi = p[ui, vi, :]
-      qi = pi / np.linalg.norm(pi)
-      d.append(-np.dot(ni, qi))
-  return d
-
 def structure_tensor(body, n):
   p = body.p
   e = []
