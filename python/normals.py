@@ -1,7 +1,11 @@
 import numpy as np
 
 class Normal:
+
   def __init__(self, kernel, body):
+    """(Normal, list, Normal) -> NoneType
+    *Description*
+    """
     self.filter_x = kernel[0]
     self.filter_y = kernel[1]
     self.body = body
@@ -10,6 +14,9 @@ class Normal:
     self.dot_n_x = self.dot_normal_x0()
 
   def folding(self, p):
+    """(Normal, ___) -> list
+    *Description*
+    """
     body = self.body
     n = body.empty_uv_xyz()
     kernel_x, kernel_y = self.filter_x, self.filter_y
@@ -38,6 +45,9 @@ class Normal:
     return n
 
   def dot_normal_x0(self):
+    """(Normal) -> list
+    *Description*
+    """
     p = self.body.p
     n = self.n
     d = []
@@ -51,7 +61,11 @@ class Normal:
 
 
 class Central(Normal):
+
   def __init__(self, body):
+    """(Central, ___) -> NoneType
+    *Description*
+    """
     CENTRAL = (
       [
       0,  0, 0,
@@ -67,7 +81,11 @@ class Central(Normal):
 
 
 class Sobel(Normal):
+
   def __init__(self, body):
+    """(Sobel, ___) -> NoneType
+    *Description*
+    """
     SOBEL= (
       [
       -1, 0, 1,
@@ -82,7 +100,10 @@ class Sobel(Normal):
     Normal.__init__(self, SOBEL, body)
 
 class Scharr(Normal):
+
   def __init__(self, body):
+    """(Scharr, ____) -> NoneType
+    """
     SCHARR = (
       [
       -3,  0,  3,
@@ -98,6 +119,9 @@ class Scharr(Normal):
 
 
 def structure_tensor(body, n):
+  """(___, list) -> NoneType
+  *Description*
+  """
   p = body.p
   e = []
   for ui in xrange(1, body.uv_shape[0] - 1):

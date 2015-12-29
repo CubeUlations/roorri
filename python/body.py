@@ -4,12 +4,18 @@ import matplotlib.pyplot as plt
 
 class Body(Geometry):
   def __init__(self, geom=Geometry()):
+    """(Body, Geometry) -> NoneType
+    *Description*
+    """
     Geometry.__init__(self, geom.pb)
     self.geom = geom
     self.p = self.empty_uv_xyz()
     self.name = "Empty"
 
   def plot(self):
+    """(Body) -> NoneType
+    *Description*
+    """
     p = self.p
     fig = plt.figure()
     ax = fig.gca(projection='3d')
@@ -18,5 +24,8 @@ class Body(Geometry):
       ax.plot(q[0][i], q[1][i], q[2][i], 'o')
 
   def empty_uv_xyz(self):
+    """(Body) -> Type(p)
+    Return ________
+    """
     p = np.zeros((self.uv_shape[0], self.uv_shape[1], 3))
     return p

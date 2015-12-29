@@ -3,7 +3,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 
 class ParamGeometry:
+
   def __init__(self, h=0.1, d_alpha=10., n_alpha=36, omega=[1., 1., 1.]):
+    """(ParamGeometry, float, int, int, list of float) -> NoneType
+    *Description*
+    """
     self.h = h
     self.d_alpha = d_alpha
     self.n_alpha = n_alpha
@@ -11,11 +15,18 @@ class ParamGeometry:
     self.e = 0.5 * self.omega
 
   def __str__(self):
+    """(ParamGeometry) -> Str
+    *Description*
+    """
     return "".join([str(v)+", " for v in [self.h, self.d_alpha, self.n_alpha, self.omega, self.e]])
 
 
 class Geometry(ParamGeometry):
+
   def __init__(self, pb=ParamGeometry()):
+    """(Geometry, ParamGeometry) -> NoneType
+    *Description*
+    """
     ParamGeometry.__init__(self, pb.h, pb.d_alpha, pb.n_alpha, pb.omega)
     self.pb = pb
     self.n = None
@@ -47,6 +58,9 @@ class Geometry(ParamGeometry):
 
 
   def __str__(self):
+    """(Geometry) -> Str
+    *Description*
+    """
     s = ParamGeometry.__str__(self)
     s = s + "\n"
     s = s + str(self.uv_shape) + ", " + str(self.x_marks) + ", " + str(self.rad_marks) + ", " + str(self.slope_marks)

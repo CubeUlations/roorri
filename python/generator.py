@@ -6,6 +6,9 @@ from body import Body
 DEFAULT_SIGMA = 1e-2
 
 def cuboid(geom=Geometry(), sigma=DEFAULT_SIGMA):
+  """(Geometry, float) -> Geometry
+  *Description*
+  """
   rnd = rand.Gauss(sigma)
   body = Body(geom)
   body.name = "Cuboid"
@@ -44,6 +47,9 @@ def cuboid(geom=Geometry(), sigma=DEFAULT_SIGMA):
   return body
 
 def ellipsoid(geom=Geometry(), sigma=DEFAULT_SIGMA):
+  """(Geometry, float) -> Geometry
+  *Description*
+  """
   rnd = rand.Gauss(sigma)
   body = Body(geom)
   body.name = "Ellipsoid"
